@@ -1,0 +1,12 @@
+sudo apt-get install python3-pip
+sudo apt-get install python3-virtualenv
+mkdir Documents/Django
+cd Documents/Django
+mkdir envs
+virtualenv -p python3 envs/test-env
+source envs/test-env/bin/activate
+python --version
+pip3 install Django
+python -m django --version
+django-admin startproject mysite
+python manage.py runserver (ip:port)[optional]
