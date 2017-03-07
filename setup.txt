@@ -1,5 +1,5 @@
 sudo apt-get install python3-pip
-sudo apt-get install python3-virtualenv
+pip3 install --upgrade pip or sudo apt-get install python3-virtualenv
 mkdir Documents/Django
 cd Documents/Django
 mkdir envs
