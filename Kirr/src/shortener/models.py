@@ -40,7 +40,7 @@ class KirrURL(models.Model):
 		
 
 	def __str__(self):
-		return str(self.url)
+		return str(self.url)+"		>>		"+str(self.shortcode)
 
 	def __unicode__(self):
 		return str(self.url)
