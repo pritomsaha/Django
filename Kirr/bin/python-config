@@ -1,4 +1,4 @@
-#!/media/pritom/Software/Programs/Django/Kirr/bin/python
+#!/home/akash/Documents/Django/Kirr/bin/python
 
 import sys
 import getopt
