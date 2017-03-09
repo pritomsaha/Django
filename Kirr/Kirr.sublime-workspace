@@ -4,6 +4,38 @@
 		"selected_items":
 		[
 			[
+				"Ki",
+				"KirrURL"
+			],
+			[
+				"get",
+				"get_object_or_404"
+			],
+			[
+				"ob",
+				"obj_url"
+			],
+			[
+				"K",
+				"KirrURL"
+			],
+			[
+				"short",
+				"shortcode\t(models.py)"
+			],
+			[
+				"se",
+				"settings"
+			],
+			[
+				"co",
+				"conf\t(utils.py)"
+			],
+			[
+				"htt",
+				"http\t(urls.py)"
+			],
+			[
 				"ne",
 				"new_code"
 			],
@@ -18,10 +50,6 @@
 			[
 				"ma",
 				"max_length"
-			],
-			[
-				"Ki",
-				"KirrURL"
 			],
 			[
 				"Kirr",
@@ -216,10 +244,6 @@
 				"font-size"
 			],
 			[
-				"co",
-				"color"
-			],
-			[
 				"hid",
 				"hide〔function〕"
 			],
@@ -234,10 +258,6 @@
 			[
 				"las",
 				"last\tL5 Last"
-			],
-			[
-				"get",
-				"getComment"
 			],
 			[
 				"pos",
@@ -494,26 +514,6 @@
 			[
 				"Comme",
 				"CommentController@store"
-			],
-			[
-				"use",
-				"uses"
-			],
-			[
-				"Aut",
-				"Auth\t(CommentController.php)"
-			],
-			[
-				"glyphicon-tra",
-				"glyphicon-trash \tBootstrap 3 Class"
-			],
-			[
-				"glyphicon-re",
-				"glyphicon-remove \tBootstrap 3 Class"
-			],
-			[
-				"pu",
-				"pull-right \tBootstrap 3 Class"
 			]
 		]
 	},
@@ -523,35 +523,25 @@
 			"file": "src/shortener/models.py",
 			"settings":
 			{
-				"buffer_size": 1305,
+				"buffer_size": 1434,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "src/shortener/utils.py",
+			"file": "src/shortener/views.py",
 			"settings":
 			{
-				"buffer_size": 516,
-				"encoding": "UTF-8",
-				"line_ending": "Unix",
-				"name": "utils.py"
-			}
-		},
-		{
-			"file": "src/shortener/management/__init__.py",
-			"settings":
-			{
-				"buffer_size": 0,
+				"buffer_size": 561,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "src/shortener/management/commands/refreshshortcode.py",
+			"file": "src/Kirr/urls.py",
 			"settings":
 			{
-				"buffer_size": 260,
+				"buffer_size": 942,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -616,14 +606,15 @@
 		"/home/akash/Documents/Django/Kirr",
 		"/home/akash/Documents/Django/Kirr/src",
 		"/home/akash/Documents/Django/Kirr/src/Kirr",
-		"/home/akash/Documents/Django/Kirr/src/shortener",
-		"/home/akash/Documents/Django/Kirr/src/shortener/management",
-		"/home/akash/Documents/Django/Kirr/src/shortener/management/commands"
+		"/home/akash/Documents/Django/Kirr/src/shortener"
 	],
 	"file_history":
 	[
-		"/home/akash/Documents/Django/Kirr/src/shortener/management/refreshshortcode.py",
+		"/home/akash/Documents/Django/Kirr/src/shortener/utils.py",
 		"/home/akash/Documents/Django/Kirr/src/Kirr/settings.py",
+		"/home/akash/Documents/Django/Kirr/src/shortener/management/__init__.py",
+		"/home/akash/Documents/Django/Kirr/src/shortener/management/commands/refreshshortcode.py",
+		"/home/akash/Documents/Django/Kirr/src/shortener/management/refreshshortcode.py",
 		"/home/akash/.bashrc",
 		"/home/akash/Documents/Django/Kirr/src/shortener/models.py",
 		"/home/akash/Documents/Django/Kirr/src/shortener/admin.py",
@@ -746,14 +737,11 @@
 		"/home/akash/Documents/Laravel/Blog/database/migrations/2017_02_05_122727_create_categories_table.php",
 		"/home/akash/Documents/Laravel/Blog/database/migrations/2017_02_05_123133_add_category_id_to_posts.php",
 		"/home/akash/Documents/Laravel/Laravel/Blog/resources/views/posts/index.blade.php",
-		"/home/akash/Documents/Laravel/Laravel/Blog/resources/views/partials/_nav.blade.php",
-		"/home/akash/Documents/Laravel/Laravel/Blog/resources/views/posts/edit.blade.php",
-		"/home/akash/Documents/Laravel/Laravel/Blog/app/Http/Controllers/PostController.php",
-		"/home/akash/Documents/Laravel/Laravel/Blog/public/css/styles.css"
+		"/home/akash/Documents/Laravel/Laravel/Blog/resources/views/partials/_nav.blade.php"
 	],
 	"find":
 	{
-		"height": 28.0
+		"height": 70.0
 	},
 	"find_in_files":
 	{
@@ -839,7 +827,7 @@
 	"groups":
 	[
 		{
-			"selected": 3,
+			"selected": 1,
 			"sheets":
 			[
 				{
@@ -848,15 +836,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1305,
+						"buffer_size": 1434,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1007,
-								1007
+								1248,
+								1248
 							]
 						],
 						"settings":
@@ -865,61 +853,61 @@
 							"syntax": "Packages/Python/Python.sublime-syntax"
 						},
 						"translation.x": 0.0,
-						"translation.y": 216.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "src/shortener/utils.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 516,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								499,
-								499
-							]
-						],
-						"settings":
-						{
-							"auto_complete": false,
-							"auto_name": "utils.py",
-							"syntax": "Packages/Python/Python.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 324.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 2,
 					"type": "text"
 				},
 				{
-					"buffer": 2,
-					"file": "src/shortener/management/__init__.py",
+					"buffer": 1,
+					"file": "src/shortener/views.py",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 0,
+						"buffer_size": 561,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								560,
+								560
 							]
 						],
 						"settings":
 						{
+							"auto_complete": false,
+							"syntax": "Packages/Python/Python.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "src/Kirr/urls.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 942,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								914,
+								914
+							]
+						],
+						"settings":
+						{
+							"auto_complete": false,
 							"syntax": "Packages/Python/Python.sublime-syntax"
 						},
 						"translation.x": 0.0,
@@ -927,37 +915,6 @@
 						"zoom_level": 1.0
 					},
 					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "src/shortener/management/commands/refreshshortcode.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 260,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								260,
-								260
-							]
-						],
-						"settings":
-						{
-							"auto_complete": false,
-							"syntax": "Packages/Python/Python.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
 					"type": "text"
 				}
 			]
