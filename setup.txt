@@ -1,14 +1,13 @@
+Step-1:
 sudo apt-get install python3-pip
 pip3 install --upgrade pip 
 pip3 install virtualenv or sudo apt-get install python3-virtualenv
-mkdir Documents/Django
-cd Documents/Django
-mkdir envs
-virtualenv -p python3 envs/test-env
-source envs/test-env/bin/activate
+cd [your project directory]
+virtualenv -p python3 [where to create env]
+source [env directory]/bin/activate
 python --version
-pip install Django
-pip install Django mysqlclient
+pip install Django mysqlclient(if database is mysql)
 python -m django --version
-django-admin startproject mysite
-python manage.py runserver (ip:port)[optional]
+django-admin startproject [site-name]
+python manage.py runserver (ip:port)
+
