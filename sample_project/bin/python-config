@@ -1,4 +1,4 @@
-#!/media/pritom/Software/Programs/Django/sample_project/bin/python
+#!/home/akash/Documents/Django/sample_project/bin/python
 
 import sys
 import getopt
