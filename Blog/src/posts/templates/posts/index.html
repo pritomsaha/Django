@@ -1,11 +1,46 @@
 {% extends "base.html" %}
 
 {% block container %}
+	<h1>Posts</h1>
+	<div class="pull-right"><a href="{% url "posts:createPost" %}" class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span></a><hr></div>
 	{% for post in posts %}
-		<h2><a href="{% url "posts:details" post.id %}"> {{ post.title }}</a></h2>
-		<p>{{ post.content }}</p>
-		<p>{{ post.updated }}</p>
-		<p>{{ post.timestamp }}</p>
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="thumbnail">
+					<div class="caption">
+						{% if post.image %}
+						    <img src="{{ post.image.url }}" class="img-responsive">
+						{% endif %}
+						<h3><a href="{% url "posts:details" post.slug %}"> {{ post.title }}</a> <small> {{ post.timestamp|timesince }} ago</small></h3>
+						<p>
+						{% if post.user.get_full_name %}
+    							Author: {{ post.user.get_full_name }}
+    						{% else %}
+    						    Author: {{ post.user }}
+    					{% endif %}
+    					</p>
+						<p>{{ post.content | linebreaks | truncatechars:120 }}</p>
+						<p><a href="{% url "posts:details" post.slug %}" class="btn btn-primary" role="button">View</a></p>
+					</div>
+				</div>
+			</div>
+		</div>
 	{% endfor %}
+
+	<div class="pagination">
+	    <span class="step-links">
+	        {% if posts.has_previous %}
+	            <a href="?page={{ contacts.previous_page_number }}">previous</a>
+	        {% endif %}
+
+	        <span class="current">
+	            Page {{ posts.number }} of {{ posts.paginator.num_pages }}.
+	        </span>
+
+	        {% if posts.has_next %}
+	            <a href="?page={{ posts.next_page_number }}">next</a>
+	        {% endif %}
+	    </span>
+	</div>
     
 {% endblock container %}
