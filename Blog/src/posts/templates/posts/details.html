@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load urlify %}
+{% block container %}
+	{% if post.image %}
+		<img src="{{ post.image.url }}" class="img-responsive">
+	{% endif %}
+    <h3>{{ post.title }}<small>{% if post.draft %}<span style="color: red;"> Draft</span>{% endif %} {{ post.publish }} <a href="{% url "posts:updatePost" post.slug %}"> <span class="glyphicon glyphicon-edit"></span></a> <a href="{% url "posts:deletePost" post.slug %}"> <span class="glyphicon glyphicon-trash"></span></a></small></h3>
+
+    {% if post.user.get_full_name %}
+    		Author: {{ post.user.get_full_name }}
+    	{% else %}
+    		Author: {{ post.user }}
+    {% endif %}
+
+    
+    <br>
+    <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}">Facebook
+	</a>
+	<a href="https://twitter.com/home?status={{ share_string }}%20{{ request.build_absolute_uri }}">Twitter</a>
+	<a href='https://plus.google.com/share?url={{ request.build_absolute_uri }}'>Google plus</a>
+	<a href="https://www.linkedin.com/shareArticle?mini=true&url={{ request.build_absolute_uri }}&title={{ post.title }}&summary={{ share_string }}&source={{ request.build_absolute_uri }}">Linkedin</a>
+	<p>{{ post.content | linebreaks }}</p>
+
+	<a href="{% url "posts:index" %}" class="btn btn-primary">Back to the list</a>
+
+	<!-- <div class="fb-comments" data-href="{{ request.build_absolute_uri }}" data-numposts="5"></div> -->
+	
+{% endblock container %}

@@ -40,7 +40,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="/media/pritom/Software/Programs/Django/sample_project"
+VIRTUAL_ENV="/home/akash/Documents/Django/sample_project"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"
