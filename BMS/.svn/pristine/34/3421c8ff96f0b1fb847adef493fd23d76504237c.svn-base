@@ -1,0 +1,67 @@
+from BMS.utils import get_decoded_id
+from django.shortcuts import render, redirect, get_object_or_404
+from .models import Purpose, Portfolio
+from .forms import PurposeCreationForm, PortfolioCreationForm
+from django.contrib import messages
+# Create your views here.
+
+def portfolio_index(request):
+	portfolios = Portfolio.objects.all()
+	contex = {
+		'portfolios': portfolios
+	}
+	return render(request, 'portfolio/index.html', contex)
+
+def portfolio_create(request, id = None):
+	portfolio = None if id == None else Portfolio.objects.get(pk = id)
+	form = PortfolioCreationForm(request.POST or None, instance = Portfolio)
+	if request.method == POST:
+		if form.is_valid():
+			portfolio = form.save(commit = False)
+			if id:
+				portfolio.updated_by = request.user.id
+			else:
+				portfolio.created_by = request.user.id
+			portfolio.save()
+			messages.success(request, "Portfolio has been successfully "+ ("created" if id==None else "updated"))
+		else:
+			messages.error(request, "Portfolio has not been successfully "+ ("created" if id==None else "updated"))
+
+def portfolio_delete(request, id):
+	portfolio = Portfolio.objects.get(pk = get_decoded_id(id))
+	portfolio.delete()
+	messages.success(request, "Portfolio has been successfully deleted")
+	return redirect('Portfolio:portfolio_index')
+
+def purpose_index(request):
+	purposes = Purpose.objects.all()
+	contex = {
+		'purposes': purposes
+	}
+	return render(request, 'purpose/index.html', contex)
+
+def purpose_create(request, id = None):
+	purpose = None if id == None else Purpose.objects.get(pk = id)
+	form =  PurposeCreationForm(request.POST or None, instance = purpose)
+	if request.method == 'POST':
+		if form.is_valid():
+			purpose = form.save(commit = False)
+			if id:
+				purpose.updated_by = request.user.id
+			else:
+				purpose.created_by = request.user.id
+			purpose.save()
+			messages.success(request, "Purpose has been successfully "+ ("created" if id==None else "updated"))
+		else:
+			messages.error(request, "Purpose has not been successfully "+ ("created" if id==None else "updated"))
+
+	contex = {
+		'form': form
+	}
+	return render(request, 'purpose/create.html', contex)
+
+def purpose_delete(request, id):
+	purpose = Purpose.objects.get(pk = get_decoded_id(id))
+	purpose.delete()
+	messages.success(request, "Purpose has been successfully deleted")
+	return redirect('Portfolio:purpose_index')

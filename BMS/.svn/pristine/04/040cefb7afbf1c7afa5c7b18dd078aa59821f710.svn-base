@@ -1,0 +1,19 @@
+from django import forms
+from .models import Portfolio,Purpose
+
+class PortfolioCreationForm(forms.ModelForm):
+	name = forms.CharField(label = 'Name', widget = forms.TextInput(attrs = {'class': 'form-control'}))
+	status = forms.BooleanField(label = 'Status', initial = True, required = False)
+
+	class Meta:
+		model = Portfolio
+		fields = ['name', 'status']
+
+class PurposeCreationForm(forms.ModelForm):
+	name = forms.CharField(label = 'Name', widget = forms.TextInput(attrs = {'class': 'form-control'}))
+	status = forms.BooleanField(label = 'Status', initial = True, required = False)
+
+	class Meta:
+		model = Purpose
+		fields = ['name', 'status']
+ 

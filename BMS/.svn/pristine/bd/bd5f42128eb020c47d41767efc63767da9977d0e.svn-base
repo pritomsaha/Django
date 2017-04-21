@@ -1,0 +1,93 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+
+{% block head_title %}
+Add user
+{% endblock %}
+
+
+{% block title %}
+Add user
+{% endblock %}
+
+
+{% block breadcrumb %}
+                <li>
+                    <a href="#" title="Users">Users</a>
+                </li>
+                <li>
+                    <i class="fa fa-lg fa-angle-right"></i>
+                </li>
+                <li>
+                    <a href="#" title="Users Registration">User Registration</a>
+                </li>
+{% endblock %}
+{% block content %}
+
+
+
+
+    {% for field in form.visible_fields %}
+
+    <ol>
+        <li>
+            <label for="{{ field.id_for_label }}">{{ field.label }}
+                {% if field.field.required %}<span class="required_field_indicator">*</span>{% endif %}
+
+            </label>
+            <div class="form_input_container">
+                {{ field }}
+                <div {% if field.errors %}class="error"{% endif %}>
+                    {{ field.errors }}
+                </div>
+            </div>
+        </li>
+
+    </ol>
+
+    {% endfor %}
+
+
+
+
+
+    <div class="body-nest" id="element">
+
+                                <div class="panel-body">
+                                    <form method="get" class="form-horizontal bucket-form">
+                                        <div class="form-group">
+                                            <label class="col-sm-3 control-label">Default</label>
+                                            <div class="col-sm-6">
+                                                <input type="text" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-3 control-label">Help text</label>
+                                            <div class="col-sm-6">
+                                                <input type="text" class="form-control">
+                                                <span class="help-block">A block of help text that breaks onto a new line and may extend beyond one line.</span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-3 control-label">Rounder</label>
+                                            <div class="col-sm-6">
+                                                <input type="text" class="form-control round-input">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-3 control-label">Input focus</label>
+                                            <div class="col-sm-6">
+                                                <input type="text" value="This is focused..." id="focusedInput" class="form-control">
+                                            </div>
+                                        </div>
+
+                                    </form>
+                                </div>
+
+                            </div>
+
+{% endblock content %}
+
+
+
+

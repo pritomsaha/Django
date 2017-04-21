@@ -1,0 +1,60 @@
+from django.http import HttpResponse
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from .models import User
+from .forms import UserRegisterForm, LoginForm, ChangePasswordForm
+from .decorators import anonymous_required
+# Create your views here.
+@login_required(login_url = "Auth:login")
+def register_user_view(request):
+	form = UserRegisterForm(request.POST or None)
+	if request.method == 'POST':
+		if form.is_valid():
+			user = form.save()
+			user.save()
+			messages.success(request, "New user was successfully added")
+			return redirect('Auth:index')
+	contex = {
+		'form': form
+	}
+	return render(request, 'auth/register_user.html', contex)
+
+@anonymous_required(redirect_url = "Auth:index")
+def login_view(request):
+	form = LoginForm(request.POST or None)
+	if request.method == 'POST':
+		if form.is_valid():
+			user = authenticate(username = form.cleaned_data['username'], password = form.cleaned_data['password'])
+			login(request, user)
+			if not request.POST.get('remember_me', False):
+				request.session.set_expiry(0)
+			return redirect('Auth:index')
+	contex = {
+		'form': form
+	}
+	return render(request, 'auth/login.html', contex)
+
+@login_required(login_url = "Auth:login")
+def logout_view(request):
+	logout(request)
+	return redirect('Auth:login')
+
+@login_required(login_url = "Auth:login")
+def change_password_view(request):
+	form = ChangePasswordForm(user = request.user, data = request.POST or None)
+	if request.method == 'POST':
+		if form.is_valid():
+			user = form.save()
+			update_session_auth_hash(request, user)
+			messages.success(request, "Password was successfully updated")
+			return redirect('Auth:index')
+	contex = {
+		'form': form
+	}
+	return render(request, 'auth/change_password.html', contex)
+
+@login_required(login_url = "Auth:login")
+def index_view(request):
+	return render(request, 'auth/index.html')

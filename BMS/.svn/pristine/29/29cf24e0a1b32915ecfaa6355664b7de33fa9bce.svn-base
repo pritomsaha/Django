@@ -1,0 +1,57 @@
+from django.shortcuts import render, redirect, get_object_or_404
+from .models import Employee,Designation
+from .forms import EmployeeCreationForm,DesignationCreationForm
+from django.contrib import messages
+
+# Create your views here.
+
+def index_employee():
+	pass
+
+def detail_employee():
+	pass
+def edit_employee():
+	pass
+def delete_employee():
+	pass
+def list_employee():
+	pass
+
+def create_employee(request):
+	form=EmployeeCreationForm(request.POST or None)
+	if form.is_valid():
+		instance=form.save(commit=False)
+		# print(form.cleaned_data.get("title"))
+		instance.save()
+		messages.success(request,'Successfully Created.')
+		return redirect('detail_employee',id=instance.id)
+	# else:
+	# 	messages.error(request,"Not successfully creasted!")
+
+	
+	context={
+	"form":form
+	}
+	#return HttpResponse("<h1>create</h1>")
+	return render(request,"employee/create.html",context)
+
+def create_designation(request):
+	form=DesignationCreationForm(request.POST or None)
+	if form.is_valid():
+		instance=form.save(commit=False)
+		# print(form.cleaned_data.get("title"))
+		instance.save()
+		messages.success(request,'Successfully Created.')
+		return redirect('list_designation')
+	# else:
+	# 	messages.error(request,"Not successfully creasted!")
+
+	
+	context={
+	"form":form
+	}
+	#return HttpResponse("<h1>create</h1>")
+	return render(request,"designation/create.html",context)
+
+def list_designation():
+	pass

@@ -1,0 +1,11 @@
+from django.conf.urls import url
+from .views import *
+
+app_name = 'Portfolio'
+urlpatterns = [
+	url(r'^purposes/index/$', purpose_index_view, name='purpose_index'),
+	url(r'^purposes/create/$', purpose_create_view, name='purpose_create'),
+	url(r'^purposes/update/(?P<id>[0-9]+)/$', purpose_create_view, name='purpose_update'),
+	url(r'^purposes/delete/(?P<id>[0-9]+)/$', purpose_delete_view, name='purpose_delete'),
+
+]

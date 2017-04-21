@@ -1,0 +1,65 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+{% block head_title %}
+| User List
+{% endblock %}
+
+{% block breadcrumb %}
+    <li>
+        <i class="fa fa-lg fa-angle-right"></i>
+    </li>
+    <li>
+        <a href="{% url "Auth:user_index" %}" title="Users Registration">User List</a>
+    </li>
+{% endblock %}
+
+{% block title %}
+User List
+{% endblock %}
+
+{% block content %}
+
+	<table class="table-striped footable-res footable metro-blue" data-page-size="2">
+		<thead>
+            <tr>
+                <th>
+                    Full Name
+                </th>
+                <th>
+                    User Name
+                </th>
+       			<th>
+       				Email
+       			</th>
+       			<th>
+       				Status
+       			</th>
+       			<th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+        	{% for user in users %}
+        	<tr>
+        		<td>{{ user.fullname }}</td>
+        		<td>{{ user.username }}</td>
+        		<td>{{ user.email }}</td>
+        		<td>{% if user.is_active %}
+                    	<span class="status-metro status-active" title="Active">Active</span>
+                    {% else %}
+                        <span class="status-metro status-disabled" title="Disabled">Disabled</span>
+        		{% endif %}
+        		</td>
+        		<td></td>
+        	</tr>
+        	{% endfor %}
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="5">
+                    <div class="pagination pagination-centered"></div>
+                </td>
+            </tr>
+        </tfoot>
+	</table>
+    
+{% endblock content %}

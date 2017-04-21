@@ -1,0 +1,156 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+{% block head_title %}
+| {{ title }} List
+{% endblock %}
+
+{% block additional_style %}
+    <link rel="stylesheet" href="{% static '' %}js/dataTable/css/jquery.dataTables.min.css" />
+{% endblock additional_style %}
+
+{% block breadcrumb %}
+    <li>
+        <i class="fa fa-lg fa-angle-right"></i>
+    </li>
+    <li>
+        <a href="{% url "Employees:employee_index" %}">{{ title }} List</a>
+    </li>
+{% endblock %}
+
+{% block title %}
+{{ title }} List
+{% endblock %}
+
+{% block button_container %}
+    <a href="{% url "Employees:employee_save" %}" class="btn btn-primary pull-right">Add {{ title }}</a>
+{% endblock button_container %}
+
+{% block content %}
+    <table class="table table-bordered" id="data-table-example" cellspacing="0" width="100%">
+        <tfoot>
+            <tr>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Designation
+                </th>
+                <th>Contact Number</th>
+                <th>
+                    Email
+                </th>
+                <th>
+                    Status
+                </th>
+                <th></th>
+            </tr>
+        </tfoot>
+        <thead class="thead-inverse">
+            <tr>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Designation
+                </th>
+                <th>Contact Number</th>
+                <th>
+                    Email
+                </th>
+                <th>
+                    Status
+                </th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for employee in employees %}
+            <tr>
+                <td>{{ employee.name }}</td>
+                <td>{{ employee.designation }}</td>
+                <td>{{ employee.contact_number }}</td>
+                <td>{{ employee.email }}</td>
+                <td>{% if employee.is_active %}
+                        <span class="label label-success" title="Active">Active</span>
+                    {% else %}
+                        <span class="label label-default" title="Disable">Disable</span>
+                {% endif %}
+                </td>
+                <td><a href="{% url "Employees:employee_save" employee.get_encoded_id %}"><span class="glyphicon glyphicon-edit text-info"></span></a>| <a href="{% url "Employees:employee_delete" employee.get_encoded_id %}" onclick="return confirm('Are you sure to delete this employee?')"><span class="glyphicon glyphicon-remove text-warning"></span></a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+{% endblock content %}
+    
+{% block additional_script %}
+    <script type="text/javascript" src="{% static '' %}js/dataTable/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="{% static '' %}js/dataTable/js/dataTables.material.min.js"></script>
+  <script type="text/javascript">
+
+        $(document).ready(function(){
+            search_columns = [0,1,2,3];
+            select_columns = [4]
+            var table = $('#data-table-example').DataTable({
+                "lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
+                "dom": '<"top"l>rt<"bottom"<"pull-left"i><"pull-right"p>>',
+                "searching": true,
+                "columnDefs": [
+                    {
+                        "targets": [4],
+                        "sortable": false,
+                    }],
+                initComplete: function (){
+                    initSelectBox(this, select_columns);    
+                }
+            });
+            initSearchBox(table, search_columns);
+
+        });
+
+        function initSearchBox(table, search_columns){
+            var tfoot_ths = $('table tfoot th');
+            search_columns.forEach(function(i){
+                var tfoot_th = tfoot_ths[i];
+                var title = $.trim($(tfoot_th).text());
+                $(tfoot_th).html( '<input type="text" class="filter"/>' );
+            });
+
+            table.columns(search_columns).every( function () {
+                var that = this;
+                $( 'input', this.footer() ).on( 'keyup change', function () {
+                    if ( that.search() !== this.value ) {
+                        that
+                            .search( this.value )
+                            .draw();
+                    }
+                });
+            });
+        }
+
+        function initSelectBox(table, select_columns){
+            table.api().columns(select_columns).every( function () {
+                var column = this;
+                var select = $('<select><option value="">-----All-----</option></select>')
+                    .appendTo( $(column.footer()).empty() )
+                    .on( 'change', function () {
+                        var val = $.fn.dataTable.util.escapeRegex(
+                            $(this).val()
+                        );
+                        column
+                            .search( val ? '^'+val+'$' : '', true, false )
+                            .draw();
+                    } );
+                
+                column.data().unique().sort().each( function ( d, j ) {
+                    val = $(d).text();
+                    console.log(val);
+                    select.append('<option value='+val+'>'+val+'</option>');
+                } );
+            });
+        }
+
+  </script>
+    
+{% endblock additional_script %}

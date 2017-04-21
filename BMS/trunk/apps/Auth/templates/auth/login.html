@@ -1,0 +1,61 @@
+{% extends "layouts/login_base.html" %}
+{% load static from staticfiles %}
+
+{% block title %}
+    Login
+{% endblock title %}
+
+{% block additional_style %}
+	<link rel="stylesheet" type="text/css" href="{% static 'css/signin.css' %}">
+{% endblock additional_style %}
+
+{% block body %}
+	<div class="container">
+		<div class="" id="login-wrapper">
+	        <div class="row">
+	            <div class="col-md-4 col-md-offset-4">
+	                <div id="logo-login">
+	                    <h1>Login</h1>
+	                </div>
+	            </div>
+	        </div>
+
+	        <div class="row">
+	            <div class="col-md-4 col-md-offset-4">
+	                <div class="account-box">
+	                <br>
+	                	{% if form.non_field_errors %}
+	                		<div class="alert alert-danger">
+	                	    {% for error in form.non_field_errors %}
+	                	    	<p>{{ error }}</p>
+	                	    {% endfor %}
+	                	   	</div>
+	                	{% endif %}
+	                	
+	                    <form role="form" action="" method="POST">
+	                    	{% csrf_token %}
+	                    	{% for field in form %}
+	                    		<div class="form-group">
+		                            <label for="{{ field.id_for_label }}"> {{ field.label }} </label>
+		                            {{ field }}
+		                            {{ field.errors }}
+	                        	</div>
+	                    	{% endfor %}
+	                    	<div class="checkbox form-group">
+	                    		<label>
+	                    		<input type="checkbox" name="remember_me">Remember me</label>
+	                    	</div>
+	                   
+	                    	<a href="#" class="pull-right label-forgot">Forgot password?</a>
+
+	                        <button class="btn btn btn-primary" type="submit">
+	                            Log In
+	                        </button>
+	                    </form>
+	                </div>
+	            </div>
+	        </div>
+    	</div>
+	</div>
+    
+{% endblock body %}

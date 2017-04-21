@@ -1,0 +1,44 @@
+from django import forms
+from .models import Employee,Designation
+from django.contrib.admin.widgets import AdminDateWidget 
+
+class DesignationCreationForm(forms.ModelForm):
+	designation_title=forms.CharField(label = 'Designation', widget = forms.TextInput(attrs = {'class': 'form-control'}))
+
+	class Meta:
+		model = Designation
+		fields=['designation_title',]
+
+class EmployeeCreationForm(forms.ModelForm):
+	name = forms.CharField(label = 'Name', widget = forms.TextInput(attrs = {'class': 'form-control'}))
+	department = forms.CharField(label = 'Department', widget = forms.TextInput(attrs = {'class': 'form-control'}))
+	# designation = forms.ChoiceField(choices=[(x.id,x.designation_title) for x in Designation.objects.all()])
+	designation = forms.ModelChoiceField(label = 'Designation', queryset = Designation.objects.all(), widget = forms.Select(attrs = {'class': 'form-control'}))
+	father_name = forms.CharField(label = "Father's Name", widget = forms.TextInput(attrs = {'class': 'form-control'}))
+	mother_name = forms.CharField(label = "Mother's Name", widget = forms.TextInput(attrs = {'class': 'form-control'}))
+	present_address= forms.CharField(label = 'Present Address', widget = forms.TextInput(attrs = {'class': 'form-control'}))
+	permanent_address =forms.CharField(label = 'Permanent Address', widget = forms.TextInput(attrs = {'class': 'form-control'}))
+	gender = forms.CharField(label = 'Gender', widget = forms.TextInput(attrs = {'class': 'form-control'}))
+	date_of_birth = forms.DateField(widget = forms.SelectDateWidget(years=range(1980,2017), attrs={'class': 'form-control'}))
+	contact_number = forms.CharField(label = 'Contact Number', widget = forms.TextInput(attrs = {'class': 'form-control'}))
+	email = forms.EmailField()
+	date_of_joining = forms.DateField(widget = forms.SelectDateWidget(years=range(1980,2017)))
+	starting_salary = forms.FloatField()
+	current_salary = forms.FloatField()
+	national_id = forms.CharField(label = 'National ID', widget = forms.TextInput(attrs = {'class': 'form-control'}))
+	status = forms.BooleanField(label = 'Status', initial = True, required = False)
+
+	# def save(self, commit=True):
+	# 	instance=super().save(commit=False)
+	# 	designation=self.cleaned_data['designation']
+	# 	instance.designation=Designation.objects.get(pk=designation)
+	# 	instance.save(commit)
+	# 	return instance
+
+	class Meta:
+		model=Employee
+		fields=['name','department','designation','father_name',
+		'mother_name','present_address','permanent_address',
+		'gender','date_of_birth','contact_number','email','date_of_joining',
+		'starting_salary','current_salary','national_id','status',
+		]

@@ -1,0 +1,83 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+{% block head_title %}
+| Profile
+{% endblock %}
+
+{% block additional_style %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/profile.css' %}">
+{% endblock additional_style %}
+
+{% block breadcrumb %}
+    <li>
+        <i class="fa fa-lg fa-angle-right"></i>
+    </li>
+    <li>
+        <a href="{% url "Auth:user_profile" %}">My Profile</a>
+    </li>
+{% endblock %}
+
+{% block title %}
+Profile
+{% endblock %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="col-xs-12 col-sm-4 text-center">
+            <ul class="list-group">
+                <li class="list-group-item text-left">
+                    <span class="entypo-user"></span>&nbsp;&nbsp;Profile</li>
+                <li class="list-group-item text-center">
+                    <img src="{{ user.profile_image.url }}" alt="profile picture" class="img-circle img-responsive img-profile" width="130px" height="130px">
+                    <!-- <h7>Upload a different photo...</h7>
+                    <form enctype="multipart/form-data">
+                    	{% csrf_token %}
+                    	{{ form.profile_image }}
+                    </form> -->
+                </li>
+                <li class="list-group-item text-right">
+                    <span class="pull-left">
+                        <strong>Joined</strong>
+                    </span>{{ user.created_at | date:"d M Y" }}</li>
+                <li class="list-group-item text-right">
+                    <span class="pull-left">
+                        <strong>Last seen</strong>
+                    </span>{{ user.last_login | timesince }} ago</li>
+                <li class="list-group-item text-right">
+                    <span class="pull-left">
+                        <strong>Username</strong>
+                    </span>{{ user.username }}</li>
+
+            </ul>
+
+        </div>
+        <div class="col-xs-12 col-sm-8 profile-name">
+            <h2>{{ user.fullname }}</h2>
+            <hr>
+
+            <dl class="dl-horizontal-profile">
+                <dt>Username</dt>
+                <dd>{{ user.username }}</dd>
+
+                <dt>Name</dt>
+                <dd>{{ user.fullname }}</dd>
+
+                <dt>Email</dt>
+                <dd>{{ user.email }}</dd>
+
+                <dt>Last Update</dt>
+                <dd>{{ user.updated_at }}</dd>
+
+                <dt>Role</dt>
+                <dd></dd>
+            </dl>
+            
+        </div>
+
+    </div>
+    
+</div>
+    
+{% endblock content %}

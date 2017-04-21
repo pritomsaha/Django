@@ -1,0 +1,28 @@
+{% extends "layouts/base.html" %}
+{% block title %}
+    {{ title }}
+{% endblock title %}
+{% block container %}
+    <h2>{{ title }}</h2>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Purpose Name</th>
+				<th>Status</th>
+				<th>Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for purpose in purposes %}
+				<tr>
+					<td>{{ purpose.name }}</td>
+					<td>{{ purpose.status }}</td>
+					<td><a href="{% url "Portfolio:purpose_update" purpose.id %}">update</a> | 
+					<a href="{% url "Portfolio:purpose_delete" purpose.id %}" onclick="return confirm('Are you sure to delete this data?');">delete</a></td>
+				</tr>
+			{% endfor %}
+		</tbody>	
+	</table>
+	<a href="{% url "Portfolio:purpose_create" %}" class="btn btn-primary">Add New</a>
+{% endblock container %}
+

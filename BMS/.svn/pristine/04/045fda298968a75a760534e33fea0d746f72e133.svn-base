@@ -1,0 +1,71 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+
+{% block head_title %}
+| Add user
+{% endblock %}
+
+{% block breadcrumb %}
+    <li>
+        <i class="fa fa-lg fa-angle-right"></i>
+    </li>
+    <li>
+        <a href="{% url "Auth:user_add" %}" title="Users Registration">Add User</a>
+    </li>
+{% endblock %}
+
+{% block title %}
+Add user
+{% endblock %}
+
+{% block content %}
+    
+    <div class="body-nest" id="element">
+        <div class="panel-body">
+            <form method="POST" action="" class="form-horizontal bucket-form">
+                {% csrf_token %}
+                {% for field in form.visible_fields %}
+                    {% if field.field.widget.input_type == "checkbox" %}
+                        <div class="form-group">
+                            <div class="col-sm-6 col-sm-offset-3">
+                                <div class=" checkbox">
+                                    <label class="control-label">
+                                        {{ field }} {{ field.label }}
+                                    </label>    
+                                </div>
+                            </div>
+                        </div>
+                        
+                    {% else %}
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="{{ field.id_for_label }}">{{ field.label }}
+                            {% if field.field.required %}<span class="required_field_indicator">*</span>{% endif %}</label>
+                            <div class="col-sm-6 form_input_container">
+                                {{ field }}
+                                <div {% if field.errors %}class="error"{% endif %}>
+                                {% for error in field.errors %}
+                                    {{ error|escape }} 
+                                {% endfor %}
+                                </div>
+                            </div>
+                        </div>    
+
+                    {% endif %}
+                
+                {% endfor %}
+                <div class="form-group">
+                    <div class="col-sm-6 col-sm-offset-3">
+                        <input type="submit" class="btn btn-primary" value="Save">&nbsp;&nbsp;
+                        <a href="{% url 'Auth:user_index' %}" class="btn btn-danger">Cancel</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+{% endblock content %}
+
+
+
+

@@ -1,0 +1,37 @@
+from django.shortcuts import render, redirect, get_object_or_404
+from .models import Purpose
+from .forms import PurposeCreationForm
+from django.contrib import messages
+# Create your views here.
+
+def purpose_index(request):
+	purposes = Purpose.objects.all()
+	contex = {
+		'purposes': purposes,
+		'title': 'Purposes'
+	}
+	return render(request, 'purpose/index.html', contex)
+
+def purpose_create(request):
+	id = request.GET.get('purpose_id', None)
+	purpose = None if id == None else Purpose.objects.get(pk = id)
+	form =  PurposeCreationForm(request.POST or None, instance = purpose)
+	if request.method == 'POST':
+		if form.is_valid():
+			form.save()
+			messages.success(request, "Purpose has been successfully "+ ("created" if id==None else "updated")+ "!")
+			return redirect('Portfolio:purpose_index')
+		else:
+			messages.error(request, "Purpose has not been successfully "+ ("created" if id==None else "updated")+ "!")
+
+	contex = {
+		'form': form,
+		'form_id': 'CreatePurpose' if id == None else 'UpdatePurpose',
+	}
+	return render(request, 'purpose/create.html', contex)
+
+def purpose_delete(request, id):
+	purpose = Purpose.objects.get(pk = id)
+	purpose.delete()
+	messages.success(request, "Purpose has been successfully deleted!")
+	return redirect('Portfolio:purpose_index')

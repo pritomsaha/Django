@@ -1,0 +1,13 @@
+from django.conf.urls import url
+from . import views
+
+app_name='Employees'
+urlpatterns = [
+url(r'^$', views.index_employee, name='index_employee'),
+url(r'^create/$', views.create_employee, name='create_employee'),
+url(r'^detail/(?P<employee_id>[0-9]+)$', views.detail_employee, name='detail_employee'),
+url(r'^edit/(?P<question_id>[0-9]+)$', views.edit_employee, name='edit_employee'),
+url(r'^delete/(?P<question_id>[0-9]+)$',views.delete_employee, name='delete_employee'),
+url(r'^list/$',views.list_employee, name="list_employee"),
+
+]

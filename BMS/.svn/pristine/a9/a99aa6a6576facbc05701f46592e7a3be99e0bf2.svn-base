@@ -1,0 +1,100 @@
+from BMS.utils import get_decoded_id
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout, update_session_auth_hash
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.conf import settings
+from .models import User
+from .forms import UserRegisterForm, UserUpdateForm, LoginForm, ChangePasswordForm, UploadImageForm
+from .decorators import anonymous_required
+# Create your views here.
+
+@anonymous_required(redirect_url = "Auth:user_index")
+def login(request):
+	form = LoginForm(request.POST or None)
+	if request.method == 'POST':
+		if form.is_valid():
+			user = authenticate(username = form.cleaned_data['username'], password = form.cleaned_data['password'])
+			auth_login(request, user)
+			if not request.POST.get('remember_me', False):
+				request.session.set_expiry(0)
+			return redirect(settings.HOME_URL)
+	contex = {
+		'form': form
+	}
+	return render(request, 'auth/login.html', contex)
+
+
+@login_required(login_url = "Auth:login")
+def logout(request):
+	auth_logout(request)
+	return redirect('Auth:login')
+
+
+@login_required(login_url = "Auth:login")
+def change_password(request):
+	form = ChangePasswordForm(user = request.user, data = request.POST or None)
+	next = request.GET.get('next', settings.HOME_URL)
+	if request.method == 'POST':
+		if form.is_valid():
+			user = form.save()
+			update_session_auth_hash(request, user)
+			messages.success(request, "Password has been successfully updated!")
+			return redirect(next)
+		else:
+			messages.error(request, "Password has not been successfully updated. Try again!")
+	contex = {
+		'form': form,
+		'next': next
+	}
+	return render(request, 'auth/change_password.html', contex)
+
+@login_required(login_url = "Auth:login")
+def user_profile(request):
+	form = UploadImageForm()
+	user = User.objects.get(pk = request.user.id)
+	return render(request, 'user/profile.html', {'user': user, 'form': form})
+
+@login_required(login_url = "Auth:login")
+def user_add(request, id = None):
+	if id:
+		instance = User.objects.get(pk = get_decoded_id(id))
+		instance.password = ""
+		form = UserUpdateForm(request.POST or None, instance = instance)
+	else:
+		form = UserRegisterForm(request.POST or None)
+	if request.method == 'POST':
+		if form.is_valid():
+			user = form.save()
+			if id:
+				user.updated_by = request.user.id
+			else:
+				user.created_by = request.user.id
+			user.save()
+			messages.success(request, "User has been successfully "+ ("updated" if id else "added") +"!")
+			return redirect('Auth:user_index')
+		else:
+			messages.error(request, "User has not been successfully "+ ("updated" if id else "added") +"!")
+
+	contex = {
+		'form': form,
+		'title': 'Update User' if id else 'Add User'
+	}
+	return render(request, 'user/add.html', contex)
+
+
+@login_required(login_url = "Auth:login")
+def user_delete(request, id):
+	user = User.objects.get(pk = get_decoded_id(id))
+	user.delete()
+	messages.success(request, "User has been successfully deleted!")
+	return redirect('Auth:user_index')
+
+
+@login_required(login_url = "Auth:login")
+def user_index(request):
+	users = User.objects.all()
+	contex = {
+		'users': users
+	}
+	return render(request, 'user/index.html', contex)

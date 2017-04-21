@@ -1,0 +1,67 @@
+<div id="skin-select">
+    <div id="logo">
+        <h1>
+            BMS
+        </h1>
+    </div>
+
+    <a id="toggle">
+        <span class="entypo-menu"></span>
+    </a>
+    <div class="dark">
+        <form action="#">
+            <span>
+                <input type="text" name="search" value="" class="search rounded id_search" placeholder="Search Menu..." autofocus />
+            </span>
+        </form>
+    </div>
+
+    <div class="search-hover">
+        <form id="demo-2">
+            <input type="search" placeholder="Search Menu..." class="id_search">
+        </form>
+    </div>
+
+    <div class="skin-part">
+        <div id="tree-wrap">
+            <div class="side-bar">
+                <ul class="topnav menu-left-nest">
+                    <li>
+                        <div style="border-left:0px solid!important;" class="title-menu-left">
+                            <span class="widget-menu">App Menu</span>
+                        </div>
+                    </li>
+
+                    <li>
+                        <a class="tooltip-tip ajax-load" href="#" title="Users">
+                            <i class="icon-document-edit"></i>
+                            <span>Users</span>
+                        </a>
+                        <ul>
+                            <li>
+                                <a class="tooltip-tip2 ajax-load" href="{% url 'Auth:user_index' %}" title="Users List"><i class="entypo-doc-text"></i><span>Users List</span></a>
+                            </li>
+                            <li>
+                                <a class="tooltip-tip2 ajax-load" href="{% url 'Auth:user_add' %}" title="Add User"><i class="entypo-newspaper"></i><span>Add User</span></a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a class="tooltip-tip ajax-load" href="#" title="Users">
+                            <i class="icon-document-edit"></i>
+                            <span>Portfolio</span>
+                        </a>
+                        <ul>
+                            <li>
+                                <a class="tooltip-tip2 ajax-load" href="{% url 'Portfolio:purpose_index' %}" title="Users List"><i class="entypo-doc-text"></i><span>Purposes</span></a>
+                            </li>
+                        </ul>
+                    </li>
+
+                </ul>
+
+            </div>
+        </div>
+    </div>
+</div>

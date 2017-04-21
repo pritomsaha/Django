@@ -1,0 +1,106 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+{% block head_title %}
+| Purpose List
+{% endblock %}
+
+{% block additional_style %}
+	<link rel="stylesheet" href="{% static '' %}js/dataTable/css/jquery.dataTables.min.css" />
+{% endblock additional_style %}
+
+{% block breadcrumb %}
+    <li>
+        <i class="fa fa-lg fa-angle-right"></i>
+    </li>
+    <li>
+        <a href="{% url "Portfolio:purpose_index" %}">Purpose List</a>
+    </li>
+{% endblock %}
+
+{% block title %}
+Purpose List
+{% endblock %}
+
+
+{% block content %}
+	<a href="" class="btn btn-primary pull-right" onclick="createPurpose(); return false;">Add New Purpose</a>
+	<table class="table table-striped display" cellspacing="0" width="100%">
+		<thead>
+			<tr>
+				<th>Purpose Name</th>
+				<th>Status</th>
+				<th>Action</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for purpose in purposes %}
+				<tr>
+					<td>{{ purpose.name }}</td>
+					<td>{% if purpose.status %}
+                        	<span class="label label-success" title="Active">Active</span>
+		                {% else %}
+		                    <span class="label label-default" title="Disable">Disable</span>
+		                {% endif %}
+		            </td>
+					<td><a href="" onclick="editPurpose({{ purpose.id }});return false;"><span class="glyphicon glyphicon-edit text-info"></span></a>| 
+					<a href="{% url "Portfolio:purpose_delete" purpose.get_encoded_id %}" onclick="return confirm('Are you sure to delete this data?');"><span class="glyphicon glyphicon-remove text-warning"></span></a></td>
+				</tr>
+			{% endfor %}
+		</tbody>	
+	</table>
+
+<div class="modal fade" tabindex="-1" role="dialog" id="purposeCreateModal"></div>
+	
+{% endblock content %}
+
+
+{% block additional_script %}
+    <script type="text/javascript">
+
+    	function createPurpose(){
+    		showModal(null);
+    	}
+
+
+    	function editPurpose(id){
+    		showModal(id);
+    	}
+
+    	function showModal(purpose_id){
+			var modal = $('#purposeCreateModal');
+			var url = (purpose_id==null)? "{% url "Portfolio:purpose_create"%}" : "{% url "Portfolio:purpose_create" 0 %}".replace('0', purpose_id);
+
+			$.ajax({
+				url: url,
+				success: function(response){
+					modal.html(response);
+					$('#purposeCreateModal').modal();
+					console.log(purpose_id);
+					$('#createPurpose').submit(function(e){
+				        e.preventDefault();
+				  		addPurpose($(this), url);
+				  	});
+				},
+				error: function(){
+					console.log("problem loading modal data");
+				}
+			});
+    	}
+
+    	function addPurpose(form, url){
+    		$.ajax({
+    			method: 'POST',
+    			url: url,
+    			data: form.serialize(),
+    			success: function(msg){
+    				console.log(msg);
+    				location.reload();
+    			},
+    			error: function(){
+    				console.log("problem creating data");
+    			}
+    		});
+    	}
+
+    </script>
+{% endblock additional_script %}

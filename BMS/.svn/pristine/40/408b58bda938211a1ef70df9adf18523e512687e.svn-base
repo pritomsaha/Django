@@ -1,0 +1,32 @@
+from django import forms
+from .models import Portfolio, Product, Purpose
+
+class PortfolioCreationForm(forms.ModelForm):
+	name = forms.CharField(label = 'Name', widget = forms.TextInput(attrs = {'class': 'form-control'}))
+	description = forms.CharField(label = 'Description', widget = forms.Textarea(attrs = {'class': 'form-control', 'placeholder': 'Please enter the  description'}))
+	status = forms.BooleanField(label = 'Status', initial = True, required = False)
+
+	class Meta:
+		model = Portfolio
+		fields = ['name', 'description', 'status']
+
+class ProductCreationForm(forms.ModelForm):
+	name = forms.CharField(label = 'Name', widget = forms.TextInput(attrs = {'class': 'form-control'}))
+	product_code = forms.CharField(label = 'Product Code', widget = forms.TextInput(attrs = {'class': 'form-control'}))
+	description = forms.CharField(label = 'Description', widget = forms.Textarea(attrs = {'class': 'form-control', 'placeholder': 'Please enter the  description'}))
+	portfolio = forms.ModelChoiceField(label = 'Portfolio', queryset = Portfolio.objects.all(), widget = forms.Select(attrs = {'class': 'form-control'}))
+	status = forms.BooleanField(label = 'Status', initial = True, required = False)
+
+	class Meta:
+		model = Product
+		fields = ['name', 'product_code', 'portfolio', 'description', 'status']
+
+class PurposeCreationForm(forms.ModelForm):
+	name = forms.CharField(label = 'Name', widget = forms.TextInput(attrs = {'class': 'form-control'}))
+	description = forms.CharField(label = 'Description', widget = forms.Textarea(attrs = {'class': 'form-control', 'placeholder': 'Please enter the  description'}))
+	status = forms.BooleanField(label = 'Status', initial = True, required = False)
+
+	class Meta:
+		model = Purpose
+		fields = ['name', 'description', 'status']
+ 

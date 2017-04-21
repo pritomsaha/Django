@@ -1,0 +1,34 @@
+from django import forms
+from .models import Portfolio, Product, Purpose
+from Employees.models import Employee
+
+class PortfolioCreationForm(forms.ModelForm):
+	name = forms.CharField(label = 'Name', widget = forms.TextInput(attrs = {'class': 'form-control'}))
+	description = forms.CharField(label = 'Description', widget = forms.Textarea(attrs = {'class': 'form-control', 'placeholder': 'Please enter the  description'}))
+	# concern_persons = forms.ModelMultipleChoiceField(label = 'Concern Persons', queryset = Employee.objects.all())
+	status = forms.BooleanField(label = 'Status', initial = True, required = False)
+
+	class Meta:
+		model = Portfolio
+		fields = ['name', 'concern_persons', 'description', 'status']
+
+class ProductCreationForm(forms.ModelForm):
+	name = forms.CharField(label = 'Name', widget = forms.TextInput(attrs = {'class': 'form-control'}))
+	product_code = forms.CharField(label = 'Product Code', widget = forms.TextInput(attrs = {'class': 'form-control'}))
+	description = forms.CharField(label = 'Description', widget = forms.Textarea(attrs = {'class': 'form-control', 'placeholder': 'Please enter the  description'}))
+	portfolio = forms.ModelChoiceField(label = 'Portfolio', queryset = Portfolio.objects.all(), widget = forms.Select(attrs = {'class': 'form-control'}))
+	status = forms.BooleanField(label = 'Status', initial = True, required = False)
+
+	class Meta:
+		model = Product
+		fields = ['name', 'product_code', 'portfolio', 'description', 'status']
+
+class PurposeCreationForm(forms.ModelForm):
+	name = forms.CharField(label = 'Name', widget = forms.TextInput(attrs = {'class': 'form-control'}))
+	description = forms.CharField(label = 'Description', widget = forms.Textarea(attrs = {'class': 'form-control', 'placeholder': 'Please enter the  description'}))
+	status = forms.BooleanField(label = 'Status', initial = True, required = False)
+
+	class Meta:
+		model = Purpose
+		fields = ['name', 'description', 'status']
+ 

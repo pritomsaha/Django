@@ -1,0 +1,9 @@
+{% extends "layouts/base.html" %}
+
+{% block container %}
+    <form action="" method="POST">
+		{% csrf_token %}
+		{{ form.as_p }}
+		<input type="submit" value="Change Password" />
+	</form>
+{% endblock container %}

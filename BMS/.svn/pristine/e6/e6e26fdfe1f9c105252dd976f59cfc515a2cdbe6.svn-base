@@ -1,0 +1,11 @@
+from django.conf.urls import url
+from .views import *
+
+app_name = 'Auth'
+urlpatterns = [
+	url(r'^login/$', login_view, name='login'),
+	url(r'^logout/$', logout_view, name='logout'),
+	url(r'^change_password/$', change_password_view, name='change_password'),
+	url(r'^users/add/$', user_add_view, name='user_add'),
+	url(r'^users/index/$', user_index_view, name='user_index'),
+]

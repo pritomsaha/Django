@@ -1,0 +1,14 @@
+from django.conf import settings
+from django.db import models
+from django.utils.translation import ugettext_lazy as _
+# Create your models here.
+
+class Purpose(models.Model):
+	name = models.CharField(_('name'), max_length = 40)
+	status = models.BooleanField(_('status'), default = True)
+
+	class Meta:
+		db_table = 'purposes'
+
+	def  get_encoded_id(self):
+		return settings.HASHID.encode(self.id)

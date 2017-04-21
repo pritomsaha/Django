@@ -1,0 +1,70 @@
+from django.http import HttpResponse
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout, update_session_auth_hash
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.conf import settings
+from .models import User
+from .forms import UserRegisterForm, LoginForm, ChangePasswordForm
+from .decorators import anonymous_required
+# Create your views here.
+
+@anonymous_required(redirect_url = "Auth:user_index")
+def login(request):
+	form = LoginForm(request.POST or None)
+	if request.method == 'POST':
+		if form.is_valid():
+			user = authenticate(username = form.cleaned_data['username'], password = form.cleaned_data['password'])
+			auth_login(request, user)
+			if not request.POST.get('remember_me', False):
+				request.session.set_expiry(0)
+			return redirect(settings.HOME_URL)
+	contex = {
+		'form': form
+	}
+	return render(request, 'auth/login.html', contex)
+
+
+@login_required(login_url = "Auth:login")
+def logout(request):
+	auth_logout(request)
+	return redirect('Auth:login')
+
+
+@login_required(login_url = "Auth:login")
+def change_password(request):
+	form = ChangePasswordForm(user = request.user, data = request.POST or None)
+	if request.method == 'POST':
+		if form.is_valid():
+			user = form.save()
+			update_session_auth_hash(request, user)
+			messages.success(request, "Password was successfully updated")
+			return redirect(settings.HOME_URL)
+	contex = {
+		'form': form
+	}
+	return render(request, 'auth/change_password.html', contex)
+
+
+@login_required(login_url = "Auth:login")
+def user_add(request):
+	form = UserRegisterForm(request.POST or None)
+	if request.method == 'POST':
+		if form.is_valid():
+			user = form.save()
+			user.save()
+			messages.success(request, "New user was successfully added")
+			return redirect(settings.HOME_URL)
+	contex = {
+		'form': form,
+	}
+	return render(request, 'user/add.html', contex)
+
+
+@login_required(login_url = "Auth:login")
+def user_index(request):
+	users = User.objects.all()
+	contex = {
+		'users': users
+	}
+	return render(request, 'user/index.html', contex)

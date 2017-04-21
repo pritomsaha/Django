@@ -1,0 +1,24 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+{% block head_title %}
+| User List
+{% endblock %}
+
+{% block breadcrumb %}
+    <li>
+        <i class="fa fa-lg fa-angle-right"></i>
+    </li>
+    <li>
+        <a href="{% url "Auth:user_index" %}" title="Users Registration">User List</a>
+    </li>
+{% endblock %}
+
+{% block title %}
+User List
+{% endblock %}
+
+{% block content %}
+
+
+    
+{% endblock content %}
