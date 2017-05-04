@@ -1,0 +1,35 @@
+from django import forms
+from .models import Employee,Designation
+from django.contrib.admin.widgets import AdminDateWidget
+
+class DesignationCreationForm(forms.ModelForm):
+	title=forms.CharField(label = 'Designation', widget = forms.TextInput(attrs = {'class': 'form-control'}))
+	status = forms.BooleanField(label = 'Status', initial = True, required = False)
+	class Meta:
+		model = Designation
+		fields=['title','status',]
+
+class EmployeeCreationForm(forms.ModelForm):
+	name = forms.CharField(label = 'Name', widget = forms.TextInput(attrs = {'class': 'form-control'}))
+	designation = forms.ModelChoiceField(label = 'Designation', empty_label = None, queryset = Designation.objects.all(), widget = forms.Select(attrs = {'class': 'form-control select2'}))
+	father_name = forms.CharField(label = "Father's Name", widget = forms.TextInput(attrs = {'class': 'form-control'}))
+	mother_name = forms.CharField(label = "Mother's Name", widget = forms.TextInput(attrs = {'class': 'form-control'}))
+	present_address= forms.CharField(label = 'Present Address', widget = forms.TextInput(attrs = {'class': 'form-control'}))
+	permanent_address =forms.CharField(label = 'Permanent Address', widget = forms.TextInput(attrs = {'class': 'form-control'}))
+	gender = forms.ChoiceField(label = 'Gender', choices = (('M', 'Male'), ('F', 'Female'), ('O', 'Others')), widget = forms.RadioSelect())
+	contact_number = forms.CharField(label = 'Contact Number', widget = forms.TextInput(attrs = {'class': 'form-control'}))
+	email = forms.EmailField(label = 'Email', widget = forms.TextInput(attrs = {'class': 'form-control'}))
+	starting_salary = forms.FloatField(label = 'Starting salary', required = False, widget = forms.TextInput(attrs = {'class': 'form-control'}))
+	current_salary = forms.FloatField(label = 'Current salary', required = False, widget = forms.TextInput(attrs = {'class': 'form-control'}))
+	national_id = forms.CharField(label = 'National ID', widget = forms.TextInput(attrs = {'class': 'form-control'}))
+	status = forms.BooleanField(label = 'Status', initial = True, required = False)
+	date_of_birth = forms.DateField(input_formats = ["%B %d, %Y"], widget = forms.TextInput(attrs={'class': 'form-control datetime-input'}))
+	date_of_joining = forms.DateField(input_formats = ["%B %d, %Y"], widget = forms.TextInput(attrs={'class': 'form-control datetime-input'}))
+
+	class Meta:
+		model=Employee
+		fields=['name','designation','father_name',
+		'mother_name','present_address','permanent_address',
+		'gender','date_of_birth','contact_number','email','date_of_joining',
+		'starting_salary','current_salary','national_id','status',
+		]

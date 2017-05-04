@@ -1,5 +1,9 @@
 {% extends "base.html" %}
 
+{% block stylesheet %}
+{{ form.media }}
+{% endblock stylesheet %}
+
 {% block container %}
     <h3>Create Post</h3>
     <form method="POST", action="" enctype="multipart/form-data">{% csrf_token %}

@@ -1,0 +1,34 @@
+from django import forms
+from .models import Client,ConcernPerson
+
+
+class ClientCreationForm(forms.ModelForm):
+	# def __init__(self, *args, **kwargs):
+	# 	super(ProductCreationForm, self).__init__(*args, **kwargs)
+	name = forms.CharField(label = 'Name', widget = forms.TextInput(attrs = {'class': 'form-control'}))
+	code = forms.CharField(label = 'Code', widget = forms.TextInput(attrs = {'class': 'form-control'}))
+	address= forms.CharField(label = 'Address', widget = forms.TextInput(attrs = {'class': 'form-control'}))
+	contact_number = forms.CharField(label = 'Contact Number', widget = forms.TextInput(attrs = {'class': 'form-control'}))
+	email = forms.EmailField(label = 'Email', widget = forms.TextInput(attrs = {'class': 'form-control'}))
+	national_id = forms.CharField(label = 'National ID', widget = forms.TextInput(attrs = {'class': 'form-control'}))
+	description = forms.CharField(label = 'Description', widget = forms.Textarea(attrs = {'class': 'form-control', 'placeholder': 'Please enter the  description'}))
+	is_person = forms.BooleanField(label = 'Is Person', initial = False, required = False)
+	status = forms.BooleanField(label = 'Status', initial = True, required = False)
+
+	class Meta:
+		model=Client
+		fields=['name','code',
+		'address',
+		'contact_number','email',
+		'national_id','description','is_person','status',
+		]
+
+
+# class ConcernPersonCreationForm(forms.ModelForm):
+# 	name=forms.CharField(label = 'Name', widget = forms.TextInput(attrs = {'class': 'form-control'}))
+# 	designation=forms.CharField(label ='Designation', widget = forms.TextInput(attrs = {'class' : form-control}))
+# 	description = forms.TextField(label = 'Description', widget = forms.TextArea(attrs = {'class': form-control}))
+# 	status = forms.BooleanField(label = 'Status', initial = True, required = False)
+# 	class Meta:
+# 		model = ConcernPerson
+# 		fields=['name','designation','description', 'status']

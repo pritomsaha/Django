@@ -1,0 +1,128 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+{% block head_title %}
+| Employee Detail
+{% endblock %}
+
+{% block additional_style %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/profile.css' %}">
+{% endblock additional_style %}
+
+{% block breadcrumb %}
+    <li>
+        <i class="fa fa-lg fa-angle-right"></i>
+    </li>
+    <li>
+        <a href="{% url "Employees:employee_detail" employee.get_encoded_id %}">Employee Detail</a>
+    </li>
+{% endblock %}
+
+{% block title %}
+Employee Detail
+{% endblock %}
+
+{% block button_container %}
+    <a href="{% url "Employees:employee_index" %}" class="btn btn-primary pull-right">Back to List</a>
+{% endblock button_container %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="col-xs-12 col-sm-4 text-center">
+            <ul class="list-group">
+                <li class="list-group-item text-left">
+                    <span class="entypo-user"></span>&nbsp;&nbsp;Employee</li>
+                <li class="list-group-item text-center">
+                    <img src="{{ employee.profile_image.url }}" alt="profile picture" class="img-circle img-responsive img-profile" width="130px" height="130px">
+                    <!-- <h7>Upload a different photo...</h7>
+                    <form enctype="multipart/form-data">
+                    	{% csrf_token %}
+                    	{{ form.profile_image }}
+                    </form> -->
+                </li>
+                <li class="list-group-item text-right">
+                    <span class="pull-left">
+                        <strong>Name</strong>
+                    </span>{{ employee.name }}
+                </li>
+                <li class="list-group-item text-right">
+                    <span class="pull-left">
+                        <strong>Designation</strong>
+                    </span>{{ employee.designation }}
+                </li>
+                <li class="list-group-item text-right">
+                    <span class="pull-left">
+                        <strong>Joined</strong>
+                    </span>{{ employee.date_of_joining | date:"d M Y" }}
+                </li>
+            </ul>
+
+        </div>
+        <div class="col-xs-12 col-sm-8 profile-name">
+            <h2>{{ employee.name }}</h2>
+            <hr>
+
+            <dl class="dl-horizontal-profile">
+                <dt>Employee Id</dt>
+                <dd>{{ employee.employee_id }}</dd>
+
+                <dt>Designation</dt>
+                <dd>{{ employee.designation }}</dd>
+
+                <dt>Status</dt>
+                <dd>{{ employee.get_status }}</dd>
+
+                <dt>Gender</dt>
+                <dd>{{ employee.get_gender }}</dd>
+
+                <dt>Father's name</dt>
+                <dd>{{ employee.father_name }}</dd>
+
+                <dt>Mother's name</dt>
+                <dd>{{ employee.mother_name }}</dd>
+
+                <dt>Present address</dt>
+                <dd>{{ employee.present_address }}</dd>
+
+                <dt>Permanent address</dt>
+                <dd>{{ employee.permanent_address }}</dd>
+
+                <dt>Present address</dt>
+                <dd>{{ employee.present_address }}</dd>
+
+                <dt>Date of Birth</dt>
+                <dd>{{ employee.date_of_birth|date:"d M Y" }}</dd>
+
+                <dt>Contact Number</dt>
+                <dd>{{ employee.contact_number }}</dd>
+
+                <dt>Email Address</dt>
+                <dd>{{ employee.email}}</dd>
+
+                <dt>Joining Date</dt>
+                <dd>{{ employee.date_of_joining|date:"d M Y" }}</dd>
+
+                <dt>Starting Salary</dt>
+                <dd>{{ employee.get_starting_salary }}</dd>
+
+                <dt>Current Salary</dt>
+                <dd>{{ employee.get_current_salary }}</dd>
+
+                <dt>National Id</dt>
+                <dd>{{ employee.get_national_id }}</dd>            
+
+                <dt>Last Update</dt>
+                <dd>{{ employee.updated_at|timesince }}</dd>
+
+            </dl>
+            <div style="margin: 10px;">
+                <a class="btn btn-block btn-primary" href="{% url "Employees:employee_save" employee.get_encoded_id %}">Edit Detail</a>
+            </div>
+        </div>
+
+    </div>
+    
+</div>
+    
+{% endblock content %}

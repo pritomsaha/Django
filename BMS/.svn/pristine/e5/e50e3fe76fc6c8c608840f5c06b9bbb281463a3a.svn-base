@@ -1,0 +1,47 @@
+from django.db import models
+from datetime import datetime
+from django.conf import settings
+from django.utils.translation import ugettext_lazy as _
+
+# Create your models here.
+
+
+class Client(models.Model):
+	name = models.CharField(_('name'), max_length=40)
+	code = models.CharField(_('code'), max_length=10,unique=True)
+	address= models.CharField(_('address'), max_length=40)
+	contact_number = models.CharField(_('contact number'), max_length=20)
+	email = models.EmailField(_('email address'), unique = True)
+	national_id = models.CharField(_('national id'), max_length=20)
+	description = models.TextField(_('description'))
+	is_person = models.BooleanField(_('is_person'), default=False)
+	status = models.BooleanField(_('status'))
+	created_at = models.DateTimeField(default = datetime.now)
+	updated_at = models.DateTimeField(auto_now = True)
+	created_by = models.IntegerField()
+	updated_by = models.IntegerField(null = True)
+
+	def __str__(self):
+		return self.name
+
+	def get_encoded_id(self):
+		return settings.HASHID.encode(self.id)
+
+	class Meta:
+		db_table = 'clients'
+			
+class ConcernPerson(models.Model):
+	order= models.IntegerField(_('order'))
+	name = models.CharField(_('name'), max_length=40)
+	designation = models.CharField(_('designation'), max_length=50)
+	division = models.CharField(_('division'), max_length=40)
+	client = models.ForeignKey(Client, on_delete=models.CASCADE)
+	status = models.BooleanField(_('status'))
+	def __str__(self):
+		return self.name
+
+	def get_encoded_id(self):
+		return settings.HASHID.encode(self.id)
+
+	class Meta:
+		db_table = 'client_concern_persons'

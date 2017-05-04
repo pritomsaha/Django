@@ -1,0 +1,30 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+{% block head_title %}
+| Client Detail
+{% endblock %}
+
+{% block additional_style %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/profile.css' %}">
+{% endblock additional_style %}
+
+{% block breadcrumb %}
+    <li>
+        <i class="fa fa-lg fa-angle-right"></i>
+    </li>
+    <li>
+        <a href="{% url "Clients:client_detail" client.get_encoded_id %}">Client Detail</a>
+    </li>
+{% endblock %}
+
+{% block title %}
+Client Detail
+{% endblock %}
+
+{% block button_container %}
+    <a href="{% url "Clients:client_index" %}" class="btn btn-primary pull-right">Back to List</a>
+{% endblock button_container %}
+
+{% block content %}
+    
+{% endblock content %}
