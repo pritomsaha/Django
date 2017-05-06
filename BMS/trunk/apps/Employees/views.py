@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.urls import reverse
 from .models import Employee,Designation
 from .forms import EmployeeCreationForm, DesignationCreationForm, ProfileImageForm
 from django.contrib import messages
@@ -27,6 +28,8 @@ def employee_list(request):
 		
 		for p in request.POST:
 			print(p)
+
+		print(request.POST['columns[4][search][value]'])
 	
 		query_total = Employee.objects.order_by('-'+table_fields[int(order_column_index)]) if order_type == 'desc' else Employee.objects.order_by(table_fields[int(order_column_index)])
 		query = query_total[int(start):int(start)+int(length)]
@@ -38,8 +41,8 @@ def employee_list(request):
 			row.append(q.designation.title)
 			row.append(q.email)
 			row.append('<span class="label label-'+('success"' if q.status else 'default"')+'>'+q.get_status()+'</span>')
-			# action = '<a href="'+{% url "Employees:employee_detail" q.get_encoded_id() %}+'"><span class="glyphicon glyphicon-search text-success"></span></a>| <a href="{% url "Employees:employee_save"'+ q.get_encoded_id() +' %}?next={{ request.path }}"><span class="glyphicon glyphicon-edit text-info"></span></a>| <a href="{% url "Employees:employee_delete" '+q.get_encoded_id()+ '%}" onclick="return confirm("Are you sure to delete this employee?")"><span class="glyphicon glyphicon-remove text-warning"></span></a>'
-			row.append("action")
+			action = '<a href="'+reverse('Employees:employee_detail', kwargs = {'id': q.get_encoded_id()})+'"><span class="glyphicon glyphicon-search text-success"></span></a>| <a href="'+reverse('Employees:employee_save', kwargs = {'id': q.get_encoded_id()})+'?next='+reverse('Employees:employee_index')+'"><span class="glyphicon glyphicon-edit text-info"></span></a>| <a href="'+reverse('Employees:employee_delete', kwargs = {'id': q.get_encoded_id()})+'" onclick="return confirm("Are you sure to delete this employee?")"><span class="glyphicon glyphicon-remove text-warning"></span></a>'
+			row.append(action)
 			data.append(row)
 
 		json_test = json.dumps({'draw': request.POST['draw'], 'recordsTotal': len(query_total), 'recordsFiltered': len(query_total), "data":data})
