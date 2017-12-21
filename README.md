@@ -1,8 +1,8 @@
 # Django
 
-##Setting up Django 
+## Setting up Django 
 
-###Step-1: Install and upgrade pip3 (pip for python3)
+### Step-1: Install and upgrade pip3 (pip for python3)
 
 Install pip3 using following command:
 
@@ -16,11 +16,11 @@ if pip3 is not latest version upgrade by following command:
 
 	pip3 install --upgrade pip 
 
-###Step-2: Install virtualenv
+### Step-2: Install virtualenv
 	
 	pip3 install virtualenv or sudo apt-get install python3-virtualenv
 
-###Step-3: Create virtual environment
+### Step-3: Create virtual environment
 
 Go to your project directory
 	cd [your project directory]
@@ -29,12 +29,12 @@ create virtual env using following command:
 
 	virtualenv -p python3 [where to create env]
 
-###Step-4: Activate virtual environment
+### Step-4: Activate virtual environment
 
 every time when you start developing you need to activate virtual environment 
 	source [env directory]/bin/activate
 
-###Step-5: Install Django
+### Step-5: Install Django
 
 	pip install Django
 
@@ -46,11 +46,11 @@ Check your Django version using following command:
 	
 	python -m django --version
 
-###Step-6: Start Project
+### Step-6: Start Project
 
 	django-admin startproject [project-name]
 
-###Step-7: Run server
+### Step-7: Run server
 
 	python manage.py runserver
 
